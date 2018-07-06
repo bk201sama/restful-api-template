@@ -27,7 +27,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     private String host;
     @Value("${spring.redis.port}")
     private int port;
-    @Value("${custom.redis.cache.expire}")
+    @Value("${custom.redis.cache.expireSeconds}")
     private int expireSeconds;
 
     @Bean

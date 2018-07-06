@@ -45,10 +45,10 @@ public class CustomAuthenticationProvider  implements AuthenticationProvider {
                 Authentication auth = new UsernamePasswordAuthenticationToken(name, password, authorities);
                 return auth;
             } else {
-                throw new BadCredentialsException(ErrorMsg.authFailed);
+                throw new BadCredentialsException(ErrorMsg.AUTH_FAILED);
             }
         } else {
-            throw new UsernameNotFoundException(ErrorMsg.authFailed);
+            throw new UsernameNotFoundException(ErrorMsg.AUTH_FAILED);
         }
     }
 

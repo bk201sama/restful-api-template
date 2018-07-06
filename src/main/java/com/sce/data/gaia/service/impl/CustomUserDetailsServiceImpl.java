@@ -4,6 +4,9 @@ import com.sce.data.gaia.constant.ServiceName;
 import com.sce.data.gaia.dao.UserRepository;
 import com.sce.data.gaia.entity.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +28,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
+    @Cacheable(value = "users",key = "#username")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         CustomUser customUser = userRepository.findByUsername(username);
         if(customUser == null){

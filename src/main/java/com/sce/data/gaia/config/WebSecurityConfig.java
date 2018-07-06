@@ -2,8 +2,8 @@ package com.sce.data.gaia.config;
 
 import com.sce.data.gaia.constant.ServiceName;
 import com.sce.data.gaia.core.CustomAuthenticationProvider;
-import com.sce.data.gaia.core.JWTAuthenticationFilter;
-import com.sce.data.gaia.core.JWTLoginFilter;
+import com.sce.data.gaia.core.JwtAuthenticationFilter;
+import com.sce.data.gaia.core.JwtLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+/**
+ * @author bk201
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -68,11 +71,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         auth.authenticationProvider(new CustomAuthenticationProvider(userDetailsService,bCryptPasswordEncoder));
     }
 
-    public JWTLoginFilter getJWTLoginFilter() throws Exception {
-        return new JWTLoginFilter(authenticationManager(),signKey,expire);
+    public JwtLoginFilter getJWTLoginFilter() throws Exception {
+        return new JwtLoginFilter(authenticationManager(),signKey,expire);
     }
 
-    public JWTAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
-        return new JWTAuthenticationFilter(authenticationManager(),signKey);
+    public JwtAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
+        return new JwtAuthenticationFilter(authenticationManager(),signKey);
     }
 }

@@ -26,12 +26,12 @@ import java.util.List;
  * @author bk201
  */
 @Slf4j
-public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
     private String signKey;
     private Long expire;
 
-    public JWTLoginFilter(AuthenticationManager authenticationManager, String signKey, Long expire) {
+    public JwtLoginFilter(AuthenticationManager authenticationManager, String signKey, Long expire) {
         this.authenticationManager = authenticationManager;
         this.signKey = signKey;
         this.expire = expire;

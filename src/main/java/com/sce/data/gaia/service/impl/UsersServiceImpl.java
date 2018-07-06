@@ -5,6 +5,8 @@ import com.sce.data.gaia.dao.UserRepository;
 import com.sce.data.gaia.entity.CustomUser;
 import com.sce.data.gaia.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -42,6 +44,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @CacheEvict(value = "users",key = "#customUser.username")
     @Transactional(rollbackFor = Exception.class)
     public int updateUser(CustomUser customUser) {
         customUser.setPassword(DigestUtils.md5DigestAsHex((customUser.getPassword()).getBytes()));

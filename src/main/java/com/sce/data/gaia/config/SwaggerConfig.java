@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author bk201
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

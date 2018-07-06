@@ -14,10 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
+/**
+ * @author bk201
+ */
+public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private String signKey;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, String signKey) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, String signKey) {
         super(authenticationManager);
         this.signKey = signKey;
     }

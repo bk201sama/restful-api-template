@@ -1,12 +1,11 @@
 package com.sce.data.gaia.service.impl;
 
-import com.sce.data.gaia.constant.ServiceName;
+import com.sce.data.gaia.constant.ServiceNames;
 import com.sce.data.gaia.dao.UserRepository;
 import com.sce.data.gaia.entity.CustomUser;
 import com.sce.data.gaia.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -14,7 +13,7 @@ import org.springframework.util.DigestUtils;
 /**
  * @author bk201
  */
-@Service(ServiceName.usersService)
+@Service(ServiceNames.usersService)
 public class UsersServiceImpl implements UsersService {
     private UserRepository userRepository;
 
@@ -25,14 +24,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public CustomUser getUser(String userName) {
-        CustomUser customUser = userRepository.findByUsername(userName);
+        CustomUser customUser = userRepository.findByUserName(userName);
         return customUser;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String deleteUser(String userName) {
-        userRepository.deleteByUsername(userName);
+        userRepository.deleteByUserName(userName);
         return "";
     }
 
@@ -48,6 +47,6 @@ public class UsersServiceImpl implements UsersService {
     @Transactional(rollbackFor = Exception.class)
     public int updateUser(CustomUser customUser) {
         customUser.setPassword(DigestUtils.md5DigestAsHex((customUser.getPassword()).getBytes()));
-        return userRepository.updateByUserName(customUser.getUsername(), customUser.getPassword());
+        return userRepository.updateByUserName(customUser.getUserName(), customUser.getPassword());
     }
 }

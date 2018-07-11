@@ -23,15 +23,19 @@ public class UserController {
     public UserController(UsersService usersService) {
         this.usersService = usersService;
     }
-    @RequestMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "/{userName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.GET)
     @ApiOperation("获取用户")
-    public ResponseEntity<CustomUser> getUser(@PathVariable("username") String userName) {
+    public ResponseEntity<CustomUser> getUser(@PathVariable("userName") String userName) {
         return new ResponseEntity<>(usersService.getUser(userName), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,method = RequestMethod.POST)
     @ApiOperation("注册用户")
     public ResponseEntity<CustomUser> addUser(@RequestBody CustomUser customUser) {
+        CustomUser findUser = usersService.getUser(customUser.getUserName());
+        if(findUser!=null)
+            return new ResponseEntity<>(customUser, HttpStatus.CONFLICT);
+
         return new ResponseEntity<>(usersService.addUser(customUser), HttpStatus.CREATED);
     }
 
@@ -41,9 +45,9 @@ public class UserController {
         return new ResponseEntity<>(usersService.updateUser(customUser), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{userName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.DELETE)
     @ApiOperation("删除用户")
-    public ResponseEntity<String> deleteUser(@PathVariable("username") String userName) {
+    public ResponseEntity<String> deleteUser(@PathVariable("userName") String userName) {
         return new ResponseEntity<>(usersService.deleteUser(userName), HttpStatus.OK);
     }
 }

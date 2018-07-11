@@ -1,6 +1,7 @@
 package com.sce.data.gaia.config;
 
-import com.sce.data.gaia.constant.ServiceName;
+import com.sce.data.gaia.constant.CommonConstant;
+import com.sce.data.gaia.constant.ServiceNames;
 import com.sce.data.gaia.core.CustomAuthenticationProvider;
 import com.sce.data.gaia.core.JwtAuthenticationFilter;
 import com.sce.data.gaia.core.JwtLoginFilter;
@@ -17,6 +18,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
+ *
+ * spring security config
  * @author bk201
  */
 @Configuration
@@ -27,25 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     private String signKey;
     @Value("${custom.jwt.expire.miles}")
     private Long expire;
-    /**
-     * 需要放行的URL
-     */
-    private static final String[] AUTH_WHITELIST = {
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"
-    };
 
     private UserDetailsService userDetailsService;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public WebSecurityConfig(@Qualifier(ServiceName.customUserDetailsService) UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurityConfig(@Qualifier(ServiceNames.customUserDetailsService) UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -53,17 +44,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
+                //don not create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().authenticated()  // 所有请求需要身份认证
+                .antMatchers(CommonConstant.AUTH_WHITELIST).permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .addFilter(getJWTLoginFilter())
                 .addFilter(getJWTAuthenticationFilter())
-                .logout() // 默认注销行为为logout，可以通过下面的方式来修改
+                .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
-                .permitAll();// 设置注销成功后跳转页面，默认是跳转到登录页面;
+                .permitAll();
     }
 
     @Override

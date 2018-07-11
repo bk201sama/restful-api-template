@@ -14,16 +14,16 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends JpaRepository<CustomUser, Long> {
     /**
      * find user by username
-     * @param username not nick name,is only
+     * @param userName not nick name,is only
      * @return CustomUser
      */
-    CustomUser findByUsername(String username);
+    CustomUser findByUserName(String userName);
 
     /**
      * delete by username
      * @param userName not nick name
      */
-    void deleteByUsername(String userName);
+    void deleteByUserName(String userName);
 
     /**
      * update by username
@@ -32,7 +32,7 @@ public interface UserRepository extends JpaRepository<CustomUser, Long> {
      * @return CustomUser
      */
     @Modifying
-    @Query("update CustomUser t1 set t1.password=:password where t1.username = :username")
-    int updateByUserName(@Param("username") String userName, @Param("password") String password);
+    @Query("update CustomUser t1 set t1.password=:password where t1.userName = :userName")
+    int updateByUserName(@Param("userName") String userName, @Param("password") String password);
 
 }

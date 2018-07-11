@@ -1,34 +1,29 @@
 package com.sce.data.gaia.entity;
 
 
+import com.sce.data.gaia.constant.TableNames;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
+ * system user table
  * @author bk201
- * eq.
- * {
- * CREATE TABLE `custom_sys_users` (
- *   `id` bigint(20) NOT NULL AUTO_INCREMENT,
- *   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
- *   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
- *   PRIMARY KEY (`id`)
- * ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
- * }
- *
- *
  */
 @Entity
-@Table(name = "custom_sys_users")
+@Table(name = TableNames.CUSTOM_SYS_USERS,indexes = {
+        @Index(name="idx_username", columnList="user_name")
+})
 @Data
 public class CustomUser {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String username;
+    @Column(table = TableNames.CUSTOM_SYS_USERS,name = "user_name",nullable = false,unique = true)
+    private String userName;
+    @Column(table = TableNames.CUSTOM_SYS_USERS,name = "password",nullable = false)
     private String password;
+    @Column(table = TableNames.CUSTOM_SYS_USERS,name = "role_names",nullable = false)
+    private String roleNames;
 }

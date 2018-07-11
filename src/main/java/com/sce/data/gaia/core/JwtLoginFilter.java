@@ -43,7 +43,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             CustomUser customUser = new ObjectMapper().readValue(req.getInputStream(), CustomUser.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            customUser.getUsername(),
+                            customUser.getUserName(),
                             customUser.getPassword(),
                             new ArrayList<>())
             );

@@ -1,24 +1,27 @@
 package com.sce.data.gaia.service.impl;
 
-import com.sce.data.gaia.constant.ServiceName;
+import com.sce.data.gaia.constant.ServiceNames;
+import com.sce.data.gaia.core.CustomGrantedAuthority;
 import com.sce.data.gaia.dao.UserRepository;
 import com.sce.data.gaia.entity.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import static java.util.Collections.emptyList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
+ * get user information including role by user name
  * @author bk201
  */
-@Service(ServiceName.customUserDetailsService)
+@Service(ServiceNames.customUserDetailsService)
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
     private  UserRepository userRepository;
 
@@ -28,13 +31,16 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    @Cacheable(value = "users",key = "#username")
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        CustomUser customUser = userRepository.findByUsername(username);
+    @Cacheable(value = "users",key = "#userName")
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        //find user information by user name (not nick name)
+        CustomUser customUser = userRepository.findByUserName(userName);
         if(customUser == null){
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException(userName);
         }
-        return new User(customUser.getUsername(), customUser.getPassword(), emptyList());
+        String[] roleNameArray = customUser.getRoleNames().split(",");
+        List<GrantedAuthority> authorities = Arrays.stream(roleNameArray).map(CustomGrantedAuthority::new).collect(Collectors.toList());
+        return new User(customUser.getUserName(), customUser.getPassword(),authorities);
     }
 
 }

@@ -122,6 +122,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--caffeine cache-->
+        <dependency>
+        <groupId>com.github.ben-manes.caffeine</groupId>
+        <artifactId>caffeine</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>gaia</finalName>

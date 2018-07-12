@@ -20,7 +20,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import java.time.Duration;
-@Configuration
+//@Configuration
 public class RedisConfig extends CachingConfigurerSupport {
     @Value("${custom.redis.cache.expireSeconds}")
     private int expireSeconds;

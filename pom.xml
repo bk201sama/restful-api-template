@@ -25,6 +25,8 @@
         <springfox-version>2.9.2</springfox-version>
         <io.jsonwebtoken.jjwt-version>0.9.0</io.jsonwebtoken.jjwt-version>
         <docker-maven-plugin-version>1.0.0</docker-maven-plugin-version>
+        <docker.repostory>registry-test.i-fun.club</docker.repostory>
+        <docker.registry.name>i-fun</docker.registry.name>
     </properties>
 
     <dependencies>
@@ -150,13 +152,20 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-maven-plugin-version}</version>
                 <configuration>
+                    <serverId>my-docker-hub</serverId>
+                    <registryUrl>${docker.repostory}</registryUrl>
+                    <pushImage>false</pushImage>
                     <dockerDirectory>src/main/docker</dockerDirectory>
+                    <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
@@ -164,13 +173,6 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                    <pushImage>true</pushImage>
-                    <serverId>my-docker-hub</serverId>
-                    <imageName>registry-test.i-fun.club/i-fun/${project.artifactId}:${project.version}</imageName>
-                    <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                    </imageTags>
-                    <registryUrl>registry-test.i-fun.club</registryUrl>
                 </configuration>
             </plugin>
         </plugins>

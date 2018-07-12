@@ -156,7 +156,6 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-maven-plugin-version}</version>
                 <configuration>
-                    <imageName>${project.artifactId}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <resources>
                         <resource>
@@ -165,6 +164,13 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
+                    <pushImage>true</pushImage>
+                    <serverId>my-docker-hub</serverId>
+                    <imageName>registry-test.i-fun.club/i-fun/${project.artifactId}:${project.version}</imageName>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
+                    <registryUrl>registry-test.i-fun.club</registryUrl>
                 </configuration>
             </plugin>
         </plugins>

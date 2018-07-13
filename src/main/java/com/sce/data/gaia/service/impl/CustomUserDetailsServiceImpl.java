@@ -3,7 +3,7 @@ package com.sce.data.gaia.service.impl;
 import com.sce.data.gaia.constant.ServiceNames;
 import com.sce.data.gaia.core.CustomGrantedAuthority;
 import com.sce.data.gaia.dao.UserRepository;
-import com.sce.data.gaia.entity.CustomUser;
+import com.sce.data.gaia.dao.domain.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.GrantedAuthority;

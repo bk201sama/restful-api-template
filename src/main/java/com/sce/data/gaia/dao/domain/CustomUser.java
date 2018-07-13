@@ -1,4 +1,4 @@
-package com.sce.data.gaia.entity;
+package com.sce.data.gaia.dao.domain;
 
 
 import com.sce.data.gaia.constant.TableNames;

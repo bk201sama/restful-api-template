@@ -1,7 +1,7 @@
 package com.sce.data.gaia.dao;
 
 
-import com.sce.data.gaia.entity.CustomUser;
+import com.sce.data.gaia.dao.domain.CustomUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

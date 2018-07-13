@@ -2,7 +2,8 @@ package com.sce.data.gaia.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
-import com.sce.data.gaia.entity.CustomUser;
+import com.sce.data.gaia.dao.domain.CustomUser;
+import com.sce.data.gaia.entity.UserVO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -40,11 +41,11 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            CustomUser customUser = new ObjectMapper().readValue(req.getInputStream(), CustomUser.class);
+            UserVO userVO = new ObjectMapper().readValue(req.getInputStream(), UserVO.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            customUser.getUserName(),
-                            customUser.getPassword(),
+                            userVO.getUsername(),
+                            userVO.getPassword(),
                             new ArrayList<>())
             );
         } catch (IOException e) {

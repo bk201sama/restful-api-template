@@ -1,6 +1,6 @@
 package com.sce.data.gaia.service;
 
-import com.sce.data.gaia.entity.CustomUser;
+import com.sce.data.gaia.dao.domain.CustomUser;
 
 /**
  * @author bk201

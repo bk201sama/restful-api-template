@@ -2,7 +2,7 @@ package com.sce.data.gaia.service.impl;
 
 import com.sce.data.gaia.constant.ServiceNames;
 import com.sce.data.gaia.dao.UserRepository;
-import com.sce.data.gaia.entity.CustomUser;
+import com.sce.data.gaia.dao.domain.CustomUser;
 import com.sce.data.gaia.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

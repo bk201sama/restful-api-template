@@ -1,6 +1,6 @@
 package com.sce.data.gaia.controller;
 
-import com.sce.data.gaia.entity.CustomUser;
+import com.sce.data.gaia.dao.domain.CustomUser;
 import com.sce.data.gaia.service.UsersService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;

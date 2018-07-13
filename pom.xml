@@ -2,25 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.sce</groupId>
-  <artifactId>gaia</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+    <groupId>com.sce</groupId>
+    <artifactId>gaia</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
 
-  <name>gaia</name>
+    <name>gaia</name>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <vertx-version>3.5.2</vertx-version>
+    </properties>
 
-  <dependencyManagement>
-    <dependencies>
-    </dependencies>
-  </dependencyManagement>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-web</artifactId>
+                <version>${vertx-version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
 </project>

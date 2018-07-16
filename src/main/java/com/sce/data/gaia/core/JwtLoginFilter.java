@@ -2,7 +2,7 @@ package com.sce.data.gaia.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
-import com.sce.data.gaia.dao.domain.CustomUser;
+import com.sce.data.gaia.constant.CommonConstant;
 import com.sce.data.gaia.entity.UserVO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -64,15 +64,19 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             for (GrantedAuthority grantedAuthority : authorities) {
                 roleList.add(grantedAuthority.getAuthority());
             }
+            //set expire
             long expiremiles = System.currentTimeMillis() + expire;
+
             String token = Jwts.builder()
-                    .setSubject(auth.getName() + "-" + roleList)
+                    .claim(CommonConstant.USERNAME,auth.getName())
+                    .claim(CommonConstant.ROLES,roleList)
                     .setExpiration(new Date(expiremiles))
                     .signWith(SignatureAlgorithm.HS512, signKey)
                     .compact();
-            response.addHeader("token", token);
+            // put in the response head
+            response.addHeader(CommonConstant.TOKEN, token);
             if(log.isDebugEnabled()){
-                log.debug("login success!!!username is {},rolelist is {},expire is {} ,token is {}",auth.getName(),roleList,expiremiles,token);
+                log.debug("login success!!!USERNAME is {},rolelist is {},expire is {} ,TOKEN is {}",auth.getName(),roleList,expiremiles,token);
             }
         } catch (Exception e) {
             log.error(Throwables.getStackTraceAsString(e));

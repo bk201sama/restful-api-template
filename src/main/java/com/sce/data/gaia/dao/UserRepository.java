@@ -13,20 +13,20 @@ import org.springframework.data.repository.query.Param;
  */
 public interface UserRepository extends JpaRepository<CustomUser, Long> {
     /**
-     * find user by username
+     * find user by USERNAME
      * @param userName not nick name,is only
      * @return CustomUser
      */
     CustomUser findByUserName(String userName);
 
     /**
-     * delete by username
+     * delete by USERNAME
      * @param userName not nick name
      */
     void deleteByUserName(String userName);
 
     /**
-     * update by username
+     * update by USERNAME
      * @param userName userName condition
      * @param password modifyed param
      * @return CustomUser

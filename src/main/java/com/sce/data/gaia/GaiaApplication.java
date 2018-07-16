@@ -1,9 +1,8 @@
 package com.sce.data.gaia;
 
-import com.google.common.collect.Lists;
+import com.sce.data.gaia.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
@@ -38,7 +37,10 @@ public class GaiaApplication {
         return new BCryptPasswordEncoder();
     }
 
-    //CORS setting
+    /**
+     * CORS setting
+     * @return CorsFilter
+     */
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
@@ -47,7 +49,7 @@ public class GaiaApplication {
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addExposedHeader("Token");
+        corsConfiguration.addExposedHeader(CommonConstant.TOKEN);
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }

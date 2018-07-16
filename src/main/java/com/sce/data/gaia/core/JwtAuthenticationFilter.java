@@ -1,11 +1,14 @@
 package com.sce.data.gaia.core;
 
+import com.google.common.base.Strings;
+import com.sce.data.gaia.constant.CommonConstant;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,7 +30,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String header = request.getHeader("token");
+        String header = request.getHeader(CommonConstant.TOKEN);
 
         if (header == null) {
             chain.doFilter(request, response);
@@ -42,15 +45,14 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader("token");
+        String token = request.getHeader(CommonConstant.TOKEN);
         if (token != null) {
-            String user = Jwts.parser()
+            Jws<Claims> jwsList = Jwts.parser()
                     .setSigningKey(signKey)
-                    .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
-
-            if (user != null) {
+                    .parseClaimsJws(token);
+            String user = String.valueOf(jwsList.getBody()
+                    .getOrDefault(CommonConstant.USERNAME, CommonConstant.EMPTRY_STR));
+            if (!Strings.isNullOrEmpty(user)) {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
             return null;

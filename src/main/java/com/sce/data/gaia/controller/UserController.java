@@ -33,10 +33,12 @@ public class UserController {
     @ApiOperation("注册用户")
     public ResponseEntity<CustomUser> addUser(@RequestBody CustomUser customUser) {
         CustomUser findUser = usersService.getUser(customUser.getUserName());
-        if(findUser!=null)
+        if(findUser!=null){
             return new ResponseEntity<>(customUser, HttpStatus.CONFLICT);
-
-        return new ResponseEntity<>(usersService.addUser(customUser), HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity<>(usersService.addUser(customUser), HttpStatus.CREATED);
+        }
     }
 
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,method = RequestMethod.PUT)

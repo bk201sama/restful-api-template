@@ -13,9 +13,10 @@ public class CommonConstant {
             "/swagger-ui.html",
             "/webjars/**"
     };
-    public static final String TOKEN = "TOKEN";
-    public static final String USERNAME = "USERNAME";
-    public static final String ROLES = "ROLES";
+    public static final String TOKEN = "token";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String ROLES = "roles";
     public static final String EMPTRY_STR = "";
 
 }

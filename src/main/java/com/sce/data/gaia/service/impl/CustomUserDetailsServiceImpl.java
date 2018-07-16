@@ -19,11 +19,12 @@ import java.util.stream.Collectors;
 
 /**
  * get user information including role by user name
+ *
  * @author bk201
  */
 @Service(ServiceNames.customUserDetailsService)
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public CustomUserDetailsServiceImpl(UserRepository userRepository) {
@@ -31,16 +32,15 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    @Cacheable(value = "users",key = "#userName")
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         //find user information by user name (not nick name)
         CustomUser customUser = userRepository.findByUserName(userName);
-        if(customUser == null){
+        if (customUser == null) {
             throw new UsernameNotFoundException(userName);
         }
         String[] roleNameArray = customUser.getRoleNames().split(",");
         List<GrantedAuthority> authorities = Arrays.stream(roleNameArray).map(CustomGrantedAuthority::new).collect(Collectors.toList());
-        return new User(customUser.getUserName(), customUser.getPassword(),authorities);
+        return new User(customUser.getUserName(), customUser.getPassword(), authorities);
     }
 
 }

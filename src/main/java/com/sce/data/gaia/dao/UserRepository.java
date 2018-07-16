@@ -2,6 +2,7 @@ package com.sce.data.gaia.dao;
 
 
 import com.sce.data.gaia.dao.domain.CustomUser;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,10 +21,10 @@ public interface UserRepository extends JpaRepository<CustomUser, Long> {
     CustomUser findByUserName(String userName);
 
     /**
-     * delete by USERNAME
+     * delete by username and password
      * @param userName not nick name
      */
-    void deleteByUserName(String userName);
+    void deleteByUserNameAndPassword(String userName,String password);
 
     /**
      * update by USERNAME
@@ -33,6 +34,6 @@ public interface UserRepository extends JpaRepository<CustomUser, Long> {
      */
     @Modifying
     @Query("update CustomUser t1 set t1.password=:password where t1.userName = :userName")
-    int updateByUserName(@Param("userName") String userName, @Param("password") String password);
+    int updatePasswordByUserName(@Param("userName") String userName, @Param("password") String password);
 
 }

@@ -15,10 +15,9 @@ public interface UsersService {
 
     /**
      * delete user by condition
-     * @param userName delete condition
-     * @return String (noting)
+     * @param customUser delete condition
      */
-    String deleteUser(String userName);
+    void deleteUser(CustomUser customUser);
 
     /**
      * add user

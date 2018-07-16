@@ -5,5 +5,7 @@ package com.sce.data.gaia.constant;
  * @author  bk201
  */
 public class ColumnNames {
-    public final static String CUSTOM_SYS_USERS = "custom_sys_users";
+    public final static String USER_NAME = "user_name";
+    public final static String PASSWORD = "password";
+    public final static String ROLE_NAMES = "role_names";
 }

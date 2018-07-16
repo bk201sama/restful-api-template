@@ -1,6 +1,7 @@
 package com.sce.data.gaia.dao.domain;
 
 
+import com.sce.data.gaia.constant.ColumnNames;
 import com.sce.data.gaia.constant.TableNames;
 import lombok.Data;
 
@@ -12,18 +13,16 @@ import java.util.List;
  * @author bk201
  */
 @Entity
-@Table(name = TableNames.CUSTOM_SYS_USERS,indexes = {
-        @Index(name="idx_username", columnList="user_name")
-})
+@Table(name = TableNames.CUSTOM_SYS_USERS)
 @Data
 public class CustomUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(table = TableNames.CUSTOM_SYS_USERS,name = "user_name",nullable = false,unique = true)
+    @Column(table = TableNames.CUSTOM_SYS_USERS,name = ColumnNames.USER_NAME,nullable = false,unique = true)
     private String userName;
-    @Column(table = TableNames.CUSTOM_SYS_USERS,name = "password",nullable = false)
+    @Column(table = TableNames.CUSTOM_SYS_USERS,name = ColumnNames.PASSWORD,nullable = false)
     private String password;
-    @Column(table = TableNames.CUSTOM_SYS_USERS,name = "role_names",nullable = false)
+    @Column(table = TableNames.CUSTOM_SYS_USERS,name = ColumnNames.ROLE_NAMES,nullable = false)
     private String roleNames;
 }

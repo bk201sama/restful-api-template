@@ -3,7 +3,6 @@ package com.sce.data.gaia.core;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
 import com.sce.data.gaia.constant.CommonConstant;
-import com.sce.data.gaia.entity.UserVO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +17,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author bk201
@@ -41,11 +37,11 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            UserVO userVO = new ObjectMapper().readValue(req.getInputStream(), UserVO.class);
+            Map<String,String> map = new ObjectMapper().readValue(req.getInputStream(), Map.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            userVO.getUsername(),
-                            userVO.getPassword(),
+                            map.get(CommonConstant.USERNAME),
+                            map.get(CommonConstant.PASSWORD),
                             new ArrayList<>())
             );
         } catch (IOException e) {

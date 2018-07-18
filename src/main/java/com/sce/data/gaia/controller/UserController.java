@@ -2,6 +2,7 @@ package com.sce.data.gaia.controller;
 
 import com.sce.data.gaia.constant.CommonConstant;
 import com.sce.data.gaia.constant.ErrorMsgs;
+import com.sce.data.gaia.constant.RequestMappingNames;
 import com.sce.data.gaia.dao.domain.CustomUser;
 import com.sce.data.gaia.controller.vo.UserVO;
 import com.sce.data.gaia.service.UsersService;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @author bk201
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping(RequestMappingNames.USERS)
 @Api
 public class UserController {
     private final UsersService usersService;
@@ -29,8 +30,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{userName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.GET)
-    @ApiOperation("获取用户")
-    public ResponseEntity<UserVO> getUser(@PathVariable("userName") String userName) {
+    @ApiOperation(value = "获取用户信息",notes = "通过用户名获取用户信息")
+    public ResponseEntity<UserVO> getUser(@PathVariable("userName")@ApiParam (required = true,value = "用户名")String userName) {
         return new ResponseEntity<>(new UserVO(usersService.getUser(userName)), HttpStatus.OK);
     }
 

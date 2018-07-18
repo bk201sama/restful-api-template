@@ -26,9 +26,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-    @Value("${custom.jwt.signing.Key}")
+    @Value("${gaia.jwt.signing.Key}")
     private String signKey;
-    @Value("${custom.jwt.expire.miles}")
+    @Value("${gaia.jwt.expire.miles}")
     private Long expire;
 
     private UserDetailsService userDetailsService;

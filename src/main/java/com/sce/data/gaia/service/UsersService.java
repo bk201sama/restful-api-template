@@ -8,6 +8,7 @@ import com.sce.data.gaia.dao.domain.CustomUser;
 public interface UsersService {
     /**
      * search user by condition
+     *
      * @param userName search condition
      * @return CustomUser
      */
@@ -15,12 +16,14 @@ public interface UsersService {
 
     /**
      * delete user by condition
+     *
      * @param customUser delete condition
      */
     void deleteUser(CustomUser customUser);
 
     /**
      * add user
+     *
      * @param customUser add user info
      * @return CustomUser
      */
@@ -28,6 +31,7 @@ public interface UsersService {
 
     /**
      * update user
+     *
      * @param customUser only update not empty value
      * @return CustomUser
      */

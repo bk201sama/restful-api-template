@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: @name@
+  profiles:
+    active: @profileActive@
+logging:
+  config: classpath:log4j2-@profileActive@.xml
+server:
+  port: 80

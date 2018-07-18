@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    hikari:
+      connection-init-sql: SELECT 1 FROM DUAL
+      pool-name: gaia-pool
+      maximum-pool-size: 5
+      minimum-idle: 1
+    url: jdbc:mysql://10.0.35.43:3306/testdb?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: test
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: linkedhashmap
+      keyConvertor: fastjson
+      limit: 100
+  remote:
+    default:
+      type: redis
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: 5
+        maxIdle: 20
+        maxTotal: 50
+      host: 10.0.35.43
+      port: 6379
+gaia:
+  api:
+    version: @version@
+  jwt:
+    signing:
+      Key: springboot-jwt-swagger~
+    expire:
+      miles: 86400000

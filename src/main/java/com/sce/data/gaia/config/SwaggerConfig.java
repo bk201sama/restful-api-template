@@ -21,7 +21,7 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    @Value("${api-version}")
+    @Value("${gaia.api.version}")
     private String apiVersion;
 
     @Bean

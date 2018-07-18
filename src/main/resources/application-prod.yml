@@ -18,21 +18,23 @@ jetcache:
   areaInCacheName: false
   local:
     default:
-      type: linkedhashmap
+      type: caffeine
       keyConvertor: fastjson
       limit: 100
+      expireAfterWriteInMillis: 300000
   remote:
     default:
       type: redis
       keyConvertor: fastjson
-      valueEncoder: java
-      valueDecoder: java
+      valueEncoder: kryo
+      valueDecoder: kryo
       poolConfig:
         minIdle: 5
         maxIdle: 20
         maxTotal: 50
       host: 10.0.35.43
       port: 6379
+      expireAfterWriteInMillis: 86400000
 gaia:
   api:
     version: @version@

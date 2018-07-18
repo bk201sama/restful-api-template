@@ -1,6 +1,7 @@
 package com.sce.data.gaia.service.impl;
 
 import com.alicp.jetcache.anno.CacheInvalidate;
+import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.CacheUpdate;
 import com.alicp.jetcache.anno.Cached;
 import com.sce.data.gaia.constant.CacheNames;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author bk201
  */
@@ -24,7 +27,8 @@ public class UsersServiceImpl implements UsersService {
     public UsersServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    @Cached(name = CacheNames.USER, key = "#userName", expire = 3600)
+
+    @Cached(name = CacheNames.USER, key = "#userName",timeUnit = TimeUnit.MINUTES,cacheType = CacheType.BOTH,localExpire = 5)
     @Override
     public CustomUser getUser(String userName) {
         return userRepository.findByUserName(userName);

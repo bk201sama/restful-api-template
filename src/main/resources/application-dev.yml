@@ -14,13 +14,14 @@ spring:
       ddl-auto: update
     show-sql: true
 jetcache:
-  statIntervalMinutes: 15
+  statIntervalMinutes: 1
   areaInCacheName: false
   local:
     default:
       type: caffeine
       keyConvertor: fastjson
       limit: 100
+      expireAfterWriteInMillis: 300000
   remote:
     default:
       type: redis
@@ -33,6 +34,7 @@ jetcache:
         maxTotal: 50
       host: 10.0.35.43
       port: 6379
+      expireAfterWriteInMillis: 86400000
 gaia:
   api:
     version: @version@

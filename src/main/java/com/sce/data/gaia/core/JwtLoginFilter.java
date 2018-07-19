@@ -2,10 +2,12 @@ package com.sce.data.gaia.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
+import com.sce.data.gaia.GaiaApplication;
 import com.sce.data.gaia.constant.CommonConstant;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,8 +24,8 @@ import java.util.*;
 /**
  * @author bk201
  */
-@Slf4j
 public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
+    private Logger log = LoggerFactory.getLogger(JwtLoginFilter.class);
     private AuthenticationManager authenticationManager;
     private String signKey;
     private Long expire;
@@ -37,7 +39,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            Map<String,String> map = new ObjectMapper().readValue(req.getInputStream(), Map.class);
+            Map<String, String> map = new ObjectMapper().readValue(req.getInputStream(), Map.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             map.get(CommonConstant.USERNAME),
@@ -64,15 +66,15 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             long expiremiles = System.currentTimeMillis() + expire;
 
             String token = Jwts.builder()
-                    .claim(CommonConstant.USERNAME,auth.getName())
-                    .claim(CommonConstant.ROLES,roleList)
+                    .claim(CommonConstant.USERNAME, auth.getName())
+                    .claim(CommonConstant.ROLES, roleList)
                     .setExpiration(new Date(expiremiles))
                     .signWith(SignatureAlgorithm.HS512, signKey)
                     .compact();
             // put in the response head
             response.addHeader(CommonConstant.TOKEN, token);
-            if(log.isDebugEnabled()){
-                log.debug("login success!!!USERNAME is {},rolelist is {},expire is {} ,TOKEN is {}",auth.getName(),roleList,expiremiles,token);
+            if (log.isDebugEnabled()) {
+                log.debug("login success!!!USERNAME is {},rolelist is {},expire is {} ,TOKEN is {}", auth.getName(), roleList, expiremiles, token);
             }
         } catch (Exception e) {
             log.error(Throwables.getStackTraceAsString(e));

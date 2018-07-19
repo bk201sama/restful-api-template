@@ -70,4 +70,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public JwtAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
         return new JwtAuthenticationFilter(authenticationManager(),signKey);
     }
+
 }

@@ -3,14 +3,17 @@ package com.sce.data.gaia.controller;
 import com.sce.data.gaia.constant.CommonConstant;
 import com.sce.data.gaia.constant.ErrorMsgs;
 import com.sce.data.gaia.constant.RequestMappingNames;
-import com.sce.data.gaia.dao.domain.CustomUser;
 import com.sce.data.gaia.controller.vo.UserVO;
+import com.sce.data.gaia.dao.domain.CustomUser;
 import com.sce.data.gaia.service.UsersService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,6 +40,7 @@ public class UserController {
 
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.POST)
     @ApiOperation("注册用户")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UserVO> addUser(@RequestBody CustomUser customUser) {
         CustomUser findUser = usersService.getUser(customUser.getUserName());
         if (findUser != null) {
@@ -48,6 +52,7 @@ public class UserController {
 
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.PUT)
     @ApiOperation("更新用户")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Integer> updateUser(@RequestBody CustomUser customUser) {
         if (usersService.getUser(customUser.getUserName()) == null) {
             return new ResponseEntity<>(0, HttpStatus.NOT_FOUND);
@@ -57,6 +62,7 @@ public class UserController {
 
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, method = RequestMethod.DELETE)
     @ApiOperation("删除用户")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deleteUser(@RequestBody CustomUser customUser) {
         if (usersService.getUser(customUser.getUserName()) == null) {
             return new ResponseEntity<>(CommonConstant.EMPTRY_STR, HttpStatus.NOT_FOUND);

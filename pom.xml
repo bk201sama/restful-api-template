@@ -25,6 +25,7 @@
         <springfox-version>2.9.2</springfox-version>
         <io.jsonwebtoken.jjwt-version>0.9.0</io.jsonwebtoken.jjwt-version>
         <jetcache-version>2.5.5</jetcache-version>
+        <jsoniter-version>0.9.19</jsoniter-version>
         <docker-maven-plugin-version>1.0.0</docker-maven-plugin-version>
         <docker.repostory>registry-test.i-fun.club</docker.repostory>
         <docker.registry.name>i-fun</docker.registry.name>
@@ -106,6 +107,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!--json tools-->
+        <dependency>
+            <groupId>com.jsoniter</groupId>
+            <artifactId>jsoniter</artifactId>
+            <version>${jsoniter-version}</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>gaia</finalName>
@@ -145,7 +153,8 @@
                     <registryUrl>${docker.repostory}</registryUrl>
                     <pushImage>false</pushImage>
                     <dockerDirectory>src/main/docker</dockerDirectory>
-                    <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                    <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}
+                    </imageName>
                     <imageTags>
                         <imageTag>${project.version}</imageTag>
                         <imageTag>latest</imageTag>

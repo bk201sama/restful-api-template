@@ -1,25 +1,25 @@
-package com.sce.data.gaia.service;
+package com.sce.data.gaia.service
 
-import com.sce.data.gaia.dao.domain.CustomUser;
+import com.sce.data.gaia.dao.domain.CustomUser
 
 /**
  * @author bk201
  */
-public interface UsersService {
+interface UsersService {
     /**
      * search user by condition
      *
      * @param userName search condition
      * @return CustomUser
      */
-    CustomUser getUser(String userName);
+    fun getUser(userName: String): CustomUser?
 
     /**
      * delete user by condition
      *
      * @param customUser delete condition
      */
-    void deleteUser(CustomUser customUser);
+    fun deleteUser(customUser: CustomUser)
 
     /**
      * add user
@@ -27,7 +27,7 @@ public interface UsersService {
      * @param customUser add user info
      * @return CustomUser
      */
-    CustomUser addUser(CustomUser customUser);
+    fun addUser(customUser: CustomUser): CustomUser?
 
     /**
      * update user
@@ -35,5 +35,5 @@ public interface UsersService {
      * @param customUser only update not empty value
      * @return CustomUser
      */
-    int updateUser(CustomUser customUser);
+    fun updateUser(customUser: CustomUser): Int
 }

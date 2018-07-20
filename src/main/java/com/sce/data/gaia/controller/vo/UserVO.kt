@@ -7,10 +7,11 @@ import com.sce.data.gaia.dao.domain.CustomUser
  * @author
  */
 class UserVO(customUser: CustomUser?) {
-    var username: String? = null
+    var username: String = ""
+
     init {
         if (customUser != null) {
-            this.username = customUser.userName
+            this.username = customUser.userName.orEmpty()
         }
     }
 }

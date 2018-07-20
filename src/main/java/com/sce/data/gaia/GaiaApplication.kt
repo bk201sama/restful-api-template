@@ -17,28 +17,9 @@ import org.springframework.web.filter.CorsFilter
  */
 @SpringBootApplication
 @EnableMethodCache(basePackages = ["com.sce.data.gaia.service"])
-class GaiaApplication {
-    @Bean
-    fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
-
-    @Bean
-    fun corsFilter(): CorsFilter {
-        val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
-        val corsConfiguration = CorsConfiguration()
-        corsConfiguration.allowCredentials = true
-        corsConfiguration.addAllowedOrigin("*")
-        corsConfiguration.addAllowedHeader("*")
-        corsConfiguration.addAllowedMethod("*")
-        corsConfiguration.addExposedHeader(CommonConstant.TOKEN)
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration)
-        return CorsFilter(urlBasedCorsConfigurationSource)
-    }
-}
+class GaiaApplication
 
 private val log = LoggerFactory.getLogger(GaiaApplication::class.java)
-
 fun main(args: Array<String>) {
     val ctx = SpringApplicationBuilder()
             .bannerMode(Banner.Mode.OFF)
@@ -49,6 +30,9 @@ fun main(args: Array<String>) {
         log.info("project is start on profile:{}", profile)
     }
 }
+
+
+
 
 
 

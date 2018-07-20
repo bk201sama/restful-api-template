@@ -15,7 +15,7 @@ import javax.persistence.*
 class CustomUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
     @Column(table = TableNames.CUSTOM_SYS_USERS, name = ColumnNames.USER_NAME, nullable = false, unique = true)
     var userName: String? = null
     @Column(table = TableNames.CUSTOM_SYS_USERS, name = ColumnNames.PASSWORD, nullable = false)

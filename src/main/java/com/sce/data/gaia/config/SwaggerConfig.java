@@ -1,5 +1,6 @@
 package com.sce.data.gaia.config;
 
+import com.sce.data.gaia.constant.CommonConstant;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ public class SwaggerConfig {
     public Docket api() {
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<>();
-        tokenPar.name("TOKEN").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(true).build();
+        tokenPar.name(CommonConstant.TOKEN).description("jwt令牌").modelRef(new ModelRef("string")).parameterType("header").required(true).build();
         pars.add(tokenPar.build());
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("API")

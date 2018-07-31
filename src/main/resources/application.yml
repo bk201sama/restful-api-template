@@ -3,6 +3,9 @@ spring:
     name: @name@
   profiles:
     active: @profileActive@
+  devtools:
+    restart:
+      enabled: true
 logging:
   config: classpath:log4j2-@profileActive@.xml
 server:

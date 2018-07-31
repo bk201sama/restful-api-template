@@ -26,6 +26,8 @@
         <io.jsonwebtoken.jjwt-version>0.9.0</io.jsonwebtoken.jjwt-version>
         <jetcache-version>2.5.5</jetcache-version>
         <jsoniter-version>0.9.19</jsoniter-version>
+        <jasperreports-version>6.6.0</jasperreports-version>
+        <jasperreports-plugin-version>2.3</jasperreports-plugin-version>
         <docker-maven-plugin-version>1.0.0</docker-maven-plugin-version>
         <docker.repostory>registry-test.i-fun.club</docker.repostory>
         <docker.registry.name>i-fun</docker.registry.name>
@@ -72,6 +74,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>objenesis</artifactId>
+                    <groupId>org.objenesis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- dev tool -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- auth -->
@@ -124,6 +139,14 @@
             <artifactId>jsoniter</artifactId>
             <version>${jsoniter-version}</version>
         </dependency>
+
+        <!--report tools-->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasperreports-version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>gaia</finalName>
@@ -176,6 +199,22 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.alexnederlof</groupId>
+                <artifactId>jasperreports-plugin</artifactId>
+                <version>${jasperreports-plugin-version}</version>
+                <configuration>
+                    <compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
+                    <sourceDirectory>src/main/resources/jasperreports</sourceDirectory>
+                    <outputDirectory>${project.build.outputDirectory}/jasperreports</outputDirectory>
+                    <outputFileExt>.jasper</outputFileExt>
+                    <xmlValidation>true</xmlValidation>
+                    <verbose>false</verbose>
+                    <numberOfThreads>4</numberOfThreads>
+                    <failOnMissingSourceDirectory>true</failOnMissingSourceDirectory>
+                    <sourceScanner>org.codehaus.plexus.compiler.util.scan.StaleSourceScanner</sourceScanner>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,6 +1,9 @@
 package com.sce.data.gaia.service;
 
+import com.sce.data.gaia.controller.vo.UserVO;
 import com.sce.data.gaia.dao.domain.CustomUser;
+
+import java.util.List;
 
 /**
  * @author bk201
@@ -36,4 +39,11 @@ public interface UsersService {
      * @return CustomUser
      */
     int updateUser(CustomUser customUser);
+
+    /**
+     * 获取所有的用户
+     * @return List<CustomUser>
+     */
+    List<CustomUser> getAllUsers();
+
 }

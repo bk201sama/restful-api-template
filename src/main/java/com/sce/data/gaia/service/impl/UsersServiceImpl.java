@@ -6,6 +6,7 @@ import com.alicp.jetcache.anno.CacheUpdate;
 import com.alicp.jetcache.anno.Cached;
 import com.sce.data.gaia.constant.CacheNames;
 import com.sce.data.gaia.constant.ServiceNames;
+import com.sce.data.gaia.controller.vo.UserVO;
 import com.sce.data.gaia.dao.UserRepository;
 import com.sce.data.gaia.dao.domain.CustomUser;
 import com.sce.data.gaia.service.UsersService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -54,5 +56,10 @@ public class UsersServiceImpl implements UsersService {
     public int updateUser(CustomUser customUser) {
         customUser.setPassword(DigestUtils.md5DigestAsHex((customUser.getPassword()).getBytes()));
         return userRepository.updatePasswordByUserName(customUser.getUserName(), customUser.getPassword());
+    }
+
+    @Override
+    public List<CustomUser> getAllUsers() {
+        return userRepository.findAll();
     }
 }

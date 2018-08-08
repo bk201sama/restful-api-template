@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry location="D:\maven_rep\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.0.35.43:3306/testdb?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=utf8" userId="test"
+                        password="test">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.sce.data.gaia.mapper.entity" targetProject="D:\dist">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.sce.data.gaia.mapper.db"
+                         targetProject="D:\dist">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.sce.data.gaia.mapper.db"
+                             targetProject="D:\dist">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table schema="rp" tableName="bi_gaia_users" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>

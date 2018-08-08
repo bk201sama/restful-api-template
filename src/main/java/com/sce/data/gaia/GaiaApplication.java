@@ -3,6 +3,7 @@ package com.sce.data.gaia;
 import com.alicp.jetcache.anno.config.EnableMethodCache;
 import com.sce.data.gaia.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -19,6 +20,7 @@ import org.springframework.web.filter.CorsFilter;
 @SpringBootApplication
 @Slf4j
 @EnableMethodCache(basePackages = "com.sce.data.gaia.service")
+@MapperScan("com.sce.data.gaia.mapper")
 public class GaiaApplication {
 
     public static void main(String[] args) {

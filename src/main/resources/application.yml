@@ -17,3 +17,5 @@ server:
     io-threads: 4
     buffer-size: 1024
     direct-buffers: true
+mybatis:
+  mapper-locations:classpath:mybatis/mapper/*.xml

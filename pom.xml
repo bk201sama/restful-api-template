@@ -231,6 +231,14 @@
                     <failOnMissingSourceDirectory>true</failOnMissingSourceDirectory>
                     <sourceScanner>org.codehaus.plexus.compiler.util.scan.StaleSourceScanner</sourceScanner>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>jasper</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         <plugin>
             <groupId>org.mybatis.generator</groupId>

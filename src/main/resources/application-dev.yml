@@ -15,6 +15,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
+    open-in-view: false
 jetcache:
   statIntervalMinutes: 1
   areaInCacheName: false
@@ -45,3 +46,10 @@ gaia:
       Key: springboot-jwt-swagger~
     expire:
       miles: 86400000
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

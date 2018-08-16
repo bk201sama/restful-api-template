@@ -5,7 +5,7 @@ spring:
       pool-name: gaia-pool
       maximum-pool-size: 5
       minimum-idle: 1
-    url: jdbc:mysql://10.0.35.43:3306/testdb?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://10.0.35.43:3306/testdb?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     username: test
     password: test

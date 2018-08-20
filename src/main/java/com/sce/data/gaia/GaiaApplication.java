@@ -1,6 +1,7 @@
 package com.sce.data.gaia;
 
 import com.alicp.jetcache.anno.config.EnableMethodCache;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sce.data.gaia.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -14,6 +15,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.persistence.EntityManager;
+
 /**
  * @author bk201
  */
@@ -24,13 +27,13 @@ import org.springframework.web.filter.CorsFilter;
 public class GaiaApplication {
 
     public static void main(String[] args) {
-        ApplicationContext ctx =   new SpringApplicationBuilder()
+        ApplicationContext ctx = new SpringApplicationBuilder()
                 .bannerMode(Banner.Mode.OFF)
                 .sources(GaiaApplication.class)
                 .run(args);
         String[] activeProfiles = ctx.getEnvironment().getActiveProfiles();
         for (String profile : activeProfiles) {
-            log.info("project is start on profile:{}" , profile);
+            log.info("project is start on profile:{}", profile);
         }
     }
 
@@ -40,10 +43,10 @@ public class GaiaApplication {
     }
 
     /**
-     * CORS setting
+     * CORS setting,take care safe question
+     *
      * @return CorsFilter
      */
-    @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -54,5 +57,15 @@ public class GaiaApplication {
         corsConfiguration.addExposedHeader(CommonConstant.TOKEN);
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(urlBasedCorsConfigurationSource);
+    }
+
+    /**
+     * QueryDSL support
+     * @param entityManager
+     * @return jpaQuery
+     */
+    @Bean
+    public JPAQueryFactory jpaQuery(EntityManager entityManager) {
+        return new JPAQueryFactory(entityManager);
     }
 }

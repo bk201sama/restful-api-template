@@ -119,10 +119,22 @@
             <version>${io.jsonwebtoken.jjwt-version}</version>
         </dependency>
 
-        <!-- orm -->
+        <!-- jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- QueryDSL -->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
         </dependency>
 
         <!-- mybatis -->
@@ -184,6 +196,7 @@
             <artifactId>jasperreports</artifactId>
             <version>${jasperreports-version}</version>
         </dependency>
+
         <!-- jasperreport chinese font need import like this-->
         <!--
         <dependency>
@@ -267,6 +280,23 @@
                         <goals>
                             <goal>jasper</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.3</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources</outputDirectory>
+                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

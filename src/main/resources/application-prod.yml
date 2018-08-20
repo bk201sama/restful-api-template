@@ -13,6 +13,14 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+#  mail:
+#    host: smtp.ym.163.com
+#    port: 25
+#    username: xxx@xxx.com
+#    password: xxxx
+#    protocol: smtp
+#    test-connection: true
+#    default-encoding: utf-8
 jetcache:
   statIntervalMinutes: 15
   areaInCacheName: false

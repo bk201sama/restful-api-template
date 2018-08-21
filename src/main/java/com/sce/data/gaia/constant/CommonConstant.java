@@ -18,5 +18,5 @@ public class CommonConstant {
     public static final String PASSWORD = "password";
     public static final String ROLES = "roles";
     public static final String EMPTRY_STR = "";
-
+    public static final String NULL_STR = "null";
 }

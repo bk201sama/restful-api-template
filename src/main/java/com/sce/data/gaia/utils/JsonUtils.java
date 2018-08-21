@@ -9,6 +9,7 @@ import com.sce.data.gaia.constant.CommonConstant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -40,13 +41,15 @@ public class JsonUtils {
     public static Any strToObject(String jsonStr) {
         JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
         JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
-        return JsonIterator.deserialize(jsonStr);
+        if (jsonStr!=null&&!Objects.equals(CommonConstant.NULL_STR,jsonStr))
+            return JsonIterator.deserialize(jsonStr);
+        else
+            return null;
     }
 
     public static void main(String[] args) {
         List<String> ret = new ArrayList<>();
         ret.add("1");
-        System.out.println(JsonUtils.strToObject("3"));
+        System.out.println(JsonUtils.strToObject(null));
     }
-
 }

@@ -37,6 +37,7 @@
         <docker.repostory>registry-test.i-fun.club</docker.repostory>
         <docker.registry.name>i-fun</docker.registry.name>
         <javassist-version>3.21.0-GA</javassist-version>
+        <retrofit-version>2.4.0</retrofit-version>
     </properties>
 
     <dependencies>
@@ -209,6 +210,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+        <!-- http client -->
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>${retrofit-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-jackson</artifactId>
+            <version>${retrofit-version}</version>
         </dependency>
 
         <!-- mail -->

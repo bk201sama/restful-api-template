@@ -19,4 +19,5 @@ public class CommonConstant {
     public static final String ROLES = "roles";
     public static final String EMPTRY_STR = "";
     public static final String NULL_STR = "null";
+    public static final String WECHAT_BASE_URL="https://qyapi.weixin.qq.com/cgi-bin/";
 }

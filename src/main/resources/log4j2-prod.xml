@@ -16,9 +16,17 @@
               <!--smtpProtocol="smtp" smtpHost="smtp.ym.163.com" smtpPort="25" bufferSize="50" smtpDebug="false"-->
               <!--smtpPassword="xxxx" smtpUsername="xxx@xx.com">-->
         <!--</SMTP>-->
+
+        <!-- wechat -->
+        <!--<WeChatAppender name="weChat">-->
+        <!--<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>-->
+        <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS},%-5level,{%thread},%class{36},%M,%msg%xEx%n"/>-->
+        <!--</WeChatAppender>-->
+
         <!-- 异步 (发邮件较慢)-->
         <!--<Async name="AsyncMailer" >-->
             <!--<appender-ref ref="Mail"/>-->
+            <!--<appender-ref ref="weChat"/>-->
         <!--</Async>-->
         <!-- 每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
         <RollingFile name="RollingFile" fileName="${LOG_HOME}/${FILE_NAME}.log"
@@ -34,6 +42,7 @@
         <Root level="info">
             <AppenderRef ref="RollingFile"/>
             <AppenderRef ref="Console"/>
+            <!--<appender-ref ref="asyncWeChat" level="error"/>-->
             <!--<appender-ref ref="AsyncMailer" level="error"/>-->
         </Root>
     </Loggers>

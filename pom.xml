@@ -38,6 +38,7 @@
         <docker.registry.name>i-fun</docker.registry.name>
         <javassist-version>3.21.0-GA</javassist-version>
         <retrofit-version>2.4.0</retrofit-version>
+        <ratelimitj-inmemory.version>0.5.0</ratelimitj-inmemory.version>
     </properties>
 
     <dependencies>
@@ -223,6 +224,14 @@
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-jackson</artifactId>
             <version>${retrofit-version}</version>
+        </dependency>
+
+
+        <!--rate limit -->
+        <dependency>
+            <groupId>es.moki.ratelimitj</groupId>
+            <artifactId>ratelimitj-inmemory</artifactId>
+            <version>${ratelimitj-inmemory.version}</version>
         </dependency>
 
         <!-- mail -->

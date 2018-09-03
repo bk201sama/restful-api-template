@@ -1,6 +1,5 @@
 package com.sce.data.gaia.service;
 
-import com.sce.data.gaia.controller.vo.UserVO;
 import com.sce.data.gaia.dao.domain.CustomUser;
 
 import java.util.List;

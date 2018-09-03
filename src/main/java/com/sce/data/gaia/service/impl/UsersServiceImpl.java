@@ -1,12 +1,8 @@
 package com.sce.data.gaia.service.impl;
 
-import com.alicp.jetcache.anno.CacheInvalidate;
-import com.alicp.jetcache.anno.CacheType;
-import com.alicp.jetcache.anno.CacheUpdate;
-import com.alicp.jetcache.anno.Cached;
-import com.sce.data.gaia.constant.CacheNames;
+import com.alicp.jetcache.anno.*;
+import com.sce.data.gaia.constant.CommonConstant;
 import com.sce.data.gaia.constant.ServiceNames;
-import com.sce.data.gaia.controller.vo.UserVO;
 import com.sce.data.gaia.dao.UserRepository;
 import com.sce.data.gaia.dao.domain.CustomUser;
 import com.sce.data.gaia.service.UsersService;
@@ -21,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author bk201
  */
-@Service(ServiceNames.usersService)
+@Service(ServiceNames.USERS_SERVICE)
 public class UsersServiceImpl implements UsersService {
     private UserRepository userRepository;
 
@@ -30,14 +26,14 @@ public class UsersServiceImpl implements UsersService {
         this.userRepository = userRepository;
     }
 
-    @Cached(name = CacheNames.USER, key = "#userName",timeUnit = TimeUnit.MINUTES,cacheType = CacheType.BOTH,localExpire = 5)
+    @Cached(cacheType = CacheType.BOTH)
+    @CachePenetrationProtect
     @Override
     public CustomUser getUser(String userName) {
         return userRepository.findByUserName(userName);
     }
 
     @Override
-    @CacheInvalidate(name = CacheNames.USER, key = "#customUser.userName")
     @Transactional(rollbackFor = Exception.class)
     public void deleteUser(CustomUser customUser) {
         userRepository.deleteByUserNameAndPassword(customUser.getUserName(), DigestUtils.md5DigestAsHex(customUser.getPassword().getBytes()));
@@ -51,7 +47,6 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    @CacheUpdate(name = CacheNames.USER, key = "#customUser.userName", value = "#customUser")
     @Transactional(rollbackFor = Exception.class)
     public int updateUser(CustomUser customUser) {
         customUser.setPassword(DigestUtils.md5DigestAsHex((customUser.getPassword()).getBytes()));

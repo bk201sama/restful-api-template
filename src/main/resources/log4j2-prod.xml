@@ -23,7 +23,7 @@
         <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS},%-5level,{%thread},%class{36},%M,%msg%xEx%n"/>-->
         <!--</WeChatAppender>-->
 
-        <!-- 异步 (发邮件较慢)-->
+        <!-- 异步 -->
         <!--<Async name="AsyncMailer" >-->
             <!--<appender-ref ref="Mail"/>-->
             <!--<appender-ref ref="weChat"/>-->

@@ -5,7 +5,7 @@ package com.sce.data.gaia.constant;
  */
 
 public class ServiceNames {
-    public final static String usersService = "usersService";
-    public final static String customUserDetailsService="customUserDetailsService";
+    public final static String USERS_SERVICE = "usersService";
+    public final static String CUSTOM_USER_DETAILS_SERVICE ="customUserDetailsService";
 
 }

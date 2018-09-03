@@ -1,43 +1,35 @@
 spring:
+  application:
+    name: @name@
   datasource:
     hikari:
       connection-init-sql: SELECT 1 FROM DUAL
       pool-name: gaia-pool
-      maximum-pool-size: 5
+      maximum-pool-size: 3
       minimum-idle: 1
-    url: jdbc:mysql://10.0.35.43:3306/testdb?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://${DW_DB}:${DW_DB_PORT}/rp?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
-    username: test
-    password: test
+    username: ${DW_DB_USR}
+    password: ${DW_DB_PSW}
+    schema:
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
     open-in-view: false
-jetcache:
-  statIntervalMinutes: 1
-  areaInCacheName: false
-  local:
-    default:
-      type: caffeine
-      keyConvertor: fastjson
-      limit: 100
-      expireAfterWriteInMillis: 300000
-  remote:
-    default:
-      type: redis
-      keyConvertor: fastjson
-      valueEncoder: kryo
-      valueDecoder: kryo
-      poolConfig:
-        minIdle: 5
-        maxIdle: 20
-        maxTotal: 50
-      host: 10.0.35.43
-      port: 6379
-      expireAfterWriteInMillis: 86400000
+logging:
+  config: classpath:log4j2.xml
+server:
+  port: 80
+  http2:
+    enabled: true
+  undertow:
+      worker-threads: 8
+      io-threads: 1
+      buffer-size: 1024
+      direct-buffers: true
 gaia:
   api:
     version: @version@
@@ -46,6 +38,24 @@ gaia:
       Key: springboot-jwt-swagger~
     expire:
       miles: 86400000
+jetcache:
+  statIntervalMinutes: 5
+  areaInCacheName: false
+  hiddenPackages: com.sce.data.gaia
+  local:
+    default:
+      type: caffeine
+      keyConvertor: fastjson
+      limit: 100
+      expireAfterWriteInMillis: 600000
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      valueEncoder: kryo
+      valueDecoder: kryo
+      expireAfterWriteInMillis: 1200000
+      uri: redis://${REDIS_PSW}@${REDIS_URL}:${REDIS_PORT}/0?timeout=1s
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 pagehelper:

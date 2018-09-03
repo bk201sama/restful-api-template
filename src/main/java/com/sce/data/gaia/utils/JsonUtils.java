@@ -7,8 +7,6 @@ import com.jsoniter.output.JsonStream;
 import com.jsoniter.spi.DecodingMode;
 import com.sce.data.gaia.constant.CommonConstant;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -23,7 +21,6 @@ public class JsonUtils {
      * @return
      */
     public static String objectToStr(Object object) {
-        JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
         JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
         if (object != null) {
             return JsonStream.serialize(object);
@@ -38,18 +35,26 @@ public class JsonUtils {
      * @param jsonStr
      * @return Any
      */
-    public static Any strToObject(String jsonStr) {
+    public static Any strToAny(String jsonStr) {
         JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
-        JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
-        if (jsonStr!=null&&!Objects.equals(CommonConstant.NULL_STR,jsonStr))
+        if (jsonStr != null && !Objects.equals(CommonConstant.NULL_STR, jsonStr))
             return JsonIterator.deserialize(jsonStr);
         else
             return null;
     }
 
-    public static void main(String[] args) {
-        List<String> ret = new ArrayList<>();
-        ret.add("1");
-        System.out.println(JsonUtils.strToObject(null));
+    /**
+     * json str to Object,need cast to class
+     *
+     * @param jsonStr
+     * @return Object
+     */
+    public static Object strToObject(String jsonStr) {
+        JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
+        if (jsonStr != null && !Objects.equals(CommonConstant.NULL_STR, jsonStr))
+            return JsonIterator.deserialize(jsonStr,Object.class);
+        else
+            return null;
     }
+
 }

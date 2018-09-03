@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -48,11 +49,11 @@ public class JasperUtils {
 
 
     public static HttpEntity<byte[]> makePdfHttpEntity(InputStream jasperStream, Map<String, Object> params,
-                                                       JRDataSource dataSource, String exportFileName) throws JRException {
+                                                       JRDataSource dataSource, String exportFileName) throws JRException, UnsupportedEncodingException {
         final byte[] data = exportPdfByJasper(jasperStream, params, dataSource);
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_PDF);
-        header.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + exportFileName + ".pdf");
+        header.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + new String(exportFileName.getBytes(),"iso-8859-1")  + ".pdf");
         header.setContentLength(data.length);
         return new HttpEntity<>(data, header);
     }
@@ -81,7 +82,7 @@ public class JasperUtils {
         final byte[] data = exportXlsxByJasper(jasperStream, params, dataSource);
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        header.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + exportFileName + ".xlsx");
+        header.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + new String(exportFileName.getBytes(),"iso-8859-1") + ".xlsx");
         header.setContentLength(data.length);
         return new HttpEntity<>(data, header);
     }
@@ -116,7 +117,7 @@ public class JasperUtils {
         final byte[] data = exportXlsxByJasper(jasperStream, params, dataSource);
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.TEXT_PLAIN);
-        header.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + exportFileName + ".csv");
+        header.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + new String(exportFileName.getBytes(),"iso-8859-1") + ".csv");
         header.setContentLength(data.length);
         return new HttpEntity<>(data, header);
     }

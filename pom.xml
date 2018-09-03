@@ -38,7 +38,7 @@
         <docker.registry.name>i-fun</docker.registry.name>
         <javassist-version>3.21.0-GA</javassist-version>
         <retrofit-version>2.4.0</retrofit-version>
-        <ratelimitj-inmemory.version>0.5.0</ratelimitj-inmemory.version>
+        <ratelimitj-redis.version>0.5.0</ratelimitj-redis.version>
     </properties>
 
     <dependencies>
@@ -78,6 +78,13 @@
             <version>${jetcache-version}</version>
         </dependency>
 
+        <!-- jedis change to lettuce -->
+        <dependency>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-starter-redis-lettuce</artifactId>
+            <version>${jetcache-version}</version>
+        </dependency>
+
         <!-- log -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -103,7 +110,7 @@
             </exclusions>
         </dependency>
 
-        <!-- dev tool,hot reload -->
+        <!-- dev tool,hot reload,should not be in product -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -207,12 +214,6 @@
             <version>${jasperreports-version}</version>
         </dependency>
 
-        <!-- time task -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
-
         <!-- http client -->
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
@@ -226,12 +227,11 @@
             <version>${retrofit-version}</version>
         </dependency>
 
-
         <!--rate limit -->
         <dependency>
             <groupId>es.moki.ratelimitj</groupId>
-            <artifactId>ratelimitj-inmemory</artifactId>
-            <version>${ratelimitj-inmemory.version}</version>
+            <artifactId>ratelimitj-redis</artifactId>
+            <version>${ratelimitj-redis.version}</version>
         </dependency>
 
         <!-- mail -->

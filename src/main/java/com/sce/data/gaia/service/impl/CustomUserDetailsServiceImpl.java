@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  *
  * @author bk201
  */
-@Service(ServiceNames.customUserDetailsService)
+@Service(ServiceNames.CUSTOM_USER_DETAILS_SERVICE)
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
     private  UsersService usersService;
 

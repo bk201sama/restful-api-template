@@ -1,28 +1,25 @@
 package com.sce.data.gaia.dao.domain;
 
 
-import com.sce.data.gaia.constant.ColumnNames;
-import com.sce.data.gaia.constant.TableNames;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * system user table
  * @author bk201
  */
 @Entity
-@Table(name = TableNames.CUSTOM_SYS_USERS)
+@Table(name = "bi_gaia_users")
 @Data
 public class CustomUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(table = TableNames.CUSTOM_SYS_USERS,name = ColumnNames.USER_NAME,nullable = false,unique = true)
+    @Column(table = "bi_gaia_users",name = "user_name",nullable = false,unique = true)
     private String userName;
-    @Column(table = TableNames.CUSTOM_SYS_USERS,name = ColumnNames.PASSWORD,nullable = false)
+    @Column(table = "bi_gaia_users",name = "password",nullable = false)
     private String password;
-    @Column(table = TableNames.CUSTOM_SYS_USERS,name = ColumnNames.ROLE_NAMES,nullable = false)
+    @Column(table = "bi_gaia_users",name = "role_names",nullable = false)
     private String roleNames;
 }
